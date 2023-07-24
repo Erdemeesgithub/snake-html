@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      #area {
+        background-color: pink;
+        position: relative;
+      }
+      #head {
+        background-color: green;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="area">
+      <div id="head"></div>
+    </div>
+
+    <button onclick="changeDir('right')">Right</button>
+    <button onclick="changeDir('down')">Down</button>
+  </body>
+
+  <script>
+    const areaWidth = 30;
+    const areaHeight = 30;
+
+    let direction = "down";
+
+    const zoom = 10;
+
+    const area = document.getElementById("area");
+    area.style.width = `${areaWidth * zoom}px`;
+    area.style.height = `${areaHeight * zoom}px`;
+
+    let snake = [
+      { left: 0, top: 0 },
+      { left: 0, top: 0 },
+    ];
+
+    const head = document.getElementById("head");
+    head.style.width = `${zoom}px`;
+    head.style.height = `${zoom}px`;
+
+    function changeDir(dir) {
+      direction = dir;
+    }
+
+    function goRight() {
+      snake[0].left = snake[0].left + 1;
+
+      if (snake[0].left > areaWidth - 1) {
+        snake[0].left = 0;
+      }
+
+      head.style.left = `${snake[0].left * zoom}px`;
+    }
+
+    function goDown() {
+      snake[0].top = snake[0].top + 1;
+
+      if (snake[0].top > areaWidth - 1) {
+        snake[0].top = 0;
+      }
+
+      head.style.top = `${snake[0].top * zoom}px`;
+    }
+
+    setInterval(function () {
+      switch (direction) {
+        case "right":
+          goRight();
+          break;
+        case "down":
+          goDown();
+          break;
+      }
+    }, 100);
+  </script>
+</html>
